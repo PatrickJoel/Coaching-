@@ -1,0 +1,351 @@
+<title>Cockpit Adequatis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: barre de filtres, rangée de 4 compteurs (contacts, RDV, ventes, CA), entonnoir + courbes hebdo, tableau par outil, journal RDV/ventes, formulaire de saisie. */
+:root{
+  --bg:#f5f6f8; --surface:#ffffff; --ink:#141b24; --muted:#5a6573; --line:#dde2e8; --grid:#eceff3;
+  --accent:#2a78d6; --accent-soft:#e4eefb;
+  --ok:#1d7a4c; --ok-soft:#e2f3ea; --warn:#9a6300; --warn-soft:#fbf0dc; --bad:#b3372c; --bad-soft:#fae5e2;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4; --s6:#008300; --s7:#4a3aa7; --s8:#e34948;
+  --f-display:"Fraunces",Georgia,serif; --f-body:"Public Sans",system-ui,-apple-system,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111519; --surface:#1a1f26; --ink:#e8ecf1; --muted:#9ba6b4; --line:#2b333e; --grid:#232a33;
+  --accent:#3987e5; --accent-soft:#1a2a3d;
+  --ok:#6fd0a0; --ok-soft:#173026; --warn:#e7b65c; --warn-soft:#342914; --bad:#f08a80; --bad-soft:#3a1e1c;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111519; --surface:#1a1f26; --ink:#e8ecf1; --muted:#9ba6b4; --line:#2b333e; --grid:#232a33;
+  --accent:#3987e5; --accent-soft:#1a2a3d;
+  --ok:#6fd0a0; --ok-soft:#173026; --warn:#e7b65c; --warn-soft:#342914; --bad:#f08a80; --bad-soft:#3a1e1c;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:14.5px;line-height:1.5;padding:0 16px}
+.wrap{max-width:1200px;margin:0 auto;padding-block:24px 56px;display:grid;gap:20px}
+h1,h2{margin:0;text-wrap:balance}
+h1{font-family:var(--f-display);font-weight:600;font-size:clamp(1.5rem,3vw,2rem);line-height:1.15}
+h2{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+p{margin:0}
+.muted{color:var(--muted)}
+.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px}
+.status{font-size:.82rem;color:var(--muted);display:flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--muted);display:inline-block}
+.dot.live{background:var(--ok)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:none;padding:6px 12px;cursor:pointer;font-size:.85rem}
+.seg button[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 11px;font-size:.82rem;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip[aria-pressed="false"]{opacity:.5}
+.chip .sw{width:9px;height:9px;border-radius:2px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:14px;min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media (max-width:820px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;gap:2px}
+.kpi .l{font-size:.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.kpi .v{font-family:var(--f-mono);font-size:1.9rem;font-weight:500;font-variant-numeric:tabular-nums;line-height:1.2}
+.kpi .d{font-size:.8rem;color:var(--muted)}
+.row2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:16px}
+@media (max-width:900px){.row2{grid-template-columns:minmax(0,1fr)}}
+.funnel{display:grid;gap:10px}
+.fstep{display:grid;grid-template-columns:90px 1fr 64px;gap:10px;align-items:center;font-size:.88rem}
+.fbar{height:22px;background:var(--grid);border-radius:4px;overflow:hidden}
+.fbar i{display:block;height:100%;background:var(--accent);border-radius:0 4px 4px 0;min-width:2px}
+.fconv{font-size:.78rem;color:var(--muted);padding-left:100px}
+.multiples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:640px){.multiples{grid-template-columns:minmax(0,1fr)}}
+.mini{display:grid;gap:4px;position:relative}
+.mini .t{font-size:.82rem;font-weight:600;display:flex;justify-content:space-between}
+.mini svg{width:100%;height:130px;display:block;overflow:visible}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:.78rem;padding:6px 8px;border-radius:6px;white-space:nowrap;z-index:5;transform:translate(-50%,-110%)}
+.table-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:.88rem}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600}
+tfoot td{font-weight:700;border-bottom:0}
+td .sw{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:8px}
+.pill{display:inline-block;font-size:.72rem;font-weight:600;padding:2px 8px;border-radius:999px}
+.pill.rdv{background:var(--accent-soft);color:var(--accent)} .pill.vente{background:var(--ok-soft);color:var(--ok)}
+.pill.off{background:var(--warn-soft);color:var(--warn)}
+.journal{display:grid;gap:0;max-height:360px;overflow:auto}
+.jrow{display:grid;grid-template-columns:86px 70px minmax(0,1fr) auto;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.88rem;align-items:center}
+.jrow .who{min-width:0;overflow-wrap:anywhere}
+.jrow:last-child{border-bottom:0}
+form{display:grid;gap:10px}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+label{display:grid;gap:3px;font-size:.78rem;color:var(--muted);font-weight:600}
+input,select{border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:7px 9px;font-size:.9rem;font-weight:400;color:var(--ink);min-width:0;width:100%}
+.btn{border:0;background:var(--accent);color:#fff;border-radius:7px;padding:8px 14px;font-weight:600;cursor:pointer;justify-self:start}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.msg{font-size:.82rem;color:var(--muted);min-height:1.2em}
+.empty{padding:24px;text-align:center;color:var(--muted);font-size:.9rem}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.note{font-size:.8rem;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.fbar i{transition:width .4s ease}}
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <div style="display:grid;gap:4px">
+      <h1>Cockpit prospection</h1>
+      <p class="muted">Tous les outils d'Adequatis réunis : contacts touchés, rendez-vous obtenus, ventes signées.</p>
+    </div>
+    <div class="status" id="status"><span class="dot" id="statusDot"></span><span id="statusTxt">Connexion aux données…</span></div>
+  </div>
+
+  <div class="filters" aria-label="Filtres">
+    <div class="seg" role="group" aria-label="Période">
+      <button type="button" data-p="4" aria-pressed="false">4 semaines</button>
+      <button type="button" data-p="8" aria-pressed="true">8 semaines</button>
+      <button type="button" data-p="0" aria-pressed="false">Tout</button>
+    </div>
+    <div class="filters" id="srcChips"></div>
+  </div>
+
+  <section class="kpis" aria-label="Indicateurs">
+    <div class="kpi"><span class="l">Contacts</span><span class="v" id="kContacts">–</span><span class="d" id="dContacts">personnes touchées</span></div>
+    <div class="kpi"><span class="l">Rendez-vous</span><span class="v" id="kRdv">–</span><span class="d" id="dRdv">tenus ou planifiés</span></div>
+    <div class="kpi"><span class="l">Ventes</span><span class="v" id="kVentes">–</span><span class="d" id="dVentes">contrats signés</span></div>
+    <div class="kpi"><span class="l">Chiffre d'affaires</span><span class="v" id="kCa">–</span><span class="d" id="dCa">HT signé</span></div>
+  </section>
+
+  <section class="row2">
+    <div class="panel">
+      <h2>Entonnoir de la période</h2>
+      <div class="funnel" id="funnel"></div>
+    </div>
+    <div class="panel">
+      <h2>Semaine par semaine</h2>
+      <div class="multiples" id="multiples"></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Par outil</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Outil</th><th>Contacts</th><th>Réponses</th><th>RDV</th><th>Ventes</th><th>CA HT</th><th>Contact → RDV</th><th>RDV → vente</th></tr></thead>
+      <tbody id="srcBody"><tr><td colspan="8" class="empty">Les chiffres de chaque outil s'afficheront ici.</td></tr></tbody>
+      <tfoot id="srcFoot"></tfoot>
+    </table></div>
+  </section>
+
+  <section class="row2">
+    <div class="panel">
+      <h2>Journal des RDV et ventes</h2>
+      <div class="journal" id="journal"><div class="empty">Aucun rendez-vous ni vente enregistré pour la période.</div></div>
+    </div>
+    <div class="panel">
+      <h2>Saisir des chiffres</h2>
+      <div class="tabs seg" role="group" aria-label="Type de saisie">
+        <button type="button" data-f="semaine" aria-pressed="true">Chiffres de la semaine</button>
+        <button type="button" data-f="event" aria-pressed="false">RDV ou vente</button>
+      </div>
+      <form id="fSemaine">
+        <div class="fgrid">
+          <label for="wSem">Semaine du (lundi)<input type="date" id="wSem" required></label>
+          <label for="wSrc">Outil<select id="wSrc" required></select></label>
+          <label for="wContacts">Contacts<input type="number" id="wContacts" min="0" value="0"></label>
+          <label for="wRep">Réponses<input type="number" id="wRep" min="0" value="0"></label>
+          <label for="wRdv">RDV<input type="number" id="wRdv" min="0" value="0"></label>
+          <label for="wVentes">Ventes<input type="number" id="wVentes" min="0" value="0"></label>
+          <label for="wCa">CA HT (€)<input type="number" id="wCa" min="0" value="0"></label>
+        </div>
+        <p class="note">Une ligne par outil et par semaine : enregistrer à nouveau remplace les chiffres de cette semaine.</p>
+        <button class="btn" type="submit">Enregistrer la semaine</button>
+      </form>
+      <form id="fEvent" hidden>
+        <div class="fgrid">
+          <label for="eType">Type<select id="eType"><option value="rdv">Rendez-vous</option><option value="vente">Vente</option></select></label>
+          <label for="eDate">Date<input type="date" id="eDate" required></label>
+          <label for="eSrc">Outil d'origine<select id="eSrc"></select></label>
+          <label for="eSoc">Société<input type="text" id="eSoc" required maxlength="80"></label>
+          <label for="eTitre">Objet<input type="text" id="eTitre" maxlength="120"></label>
+          <label for="eMontant">Montant HT (€)<input type="number" id="eMontant" min="0" value="0"></label>
+        </div>
+        <button class="btn" type="submit">Ajouter au journal</button>
+      </form>
+      <p class="msg" id="formMsg" role="status"></p>
+    </div>
+  </section>
+
+  <p class="note">Sources : chiffres consolidés depuis les outils connectés (CRM, séquences e-mail, agenda, enregistrements d'appels) et saisies manuelles. Les RDV et ventes du journal s'ajoutent aux totaux hebdomadaires de leur outil.</p>
+</div>
+
+<script>
+(function(){
+  const state={sources:[],semaines:[],events:[],period:8,off:new Set(),canWrite:true};
+  const $=id=>document.getElementById(id);
+  const fmt=n=>new Intl.NumberFormat('fr-FR').format(Math.round(n||0));
+  const eur=n=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n||0);
+  const pct=(a,b)=>b>0?(100*a/b).toFixed(1).replace('.',',')+' %':'–';
+  const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const monday=d=>{const x=new Date(d+'T12:00:00');const k=(x.getDay()+6)%7;x.setDate(x.getDate()-k);return x.toISOString().slice(0,10)};
+  const todayIso=()=>new Date().toISOString().slice(0,10);
+  const shortDate=iso=>{const [y,m,d]=iso.split('-');return d+'/'+m};
+  const color=i=>`var(--s${(i%8)+1})`;
+
+  function srcIndex(id){const i=state.sources.findIndex(s=>s.id===id);return i<0?7:i}
+  function srcName(id){const s=state.sources.find(s=>s.id===id);return s?s.nom:id}
+
+  function weeksInScope(){
+    const all=new Set(state.semaines.map(r=>r.semaine));
+    state.events.forEach(e=>e.date&&all.add(monday(e.date)));
+    let w=[...all].sort();
+    if(state.period>0){
+      const end=monday(todayIso());const start=new Date(end+'T12:00:00');start.setDate(start.getDate()-7*(state.period-1));
+      const s=start.toISOString().slice(0,10);
+      w=[];for(let d=new Date(s+'T12:00:00');d.toISOString().slice(0,10)<=end;d.setDate(d.getDate()+7))w.push(d.toISOString().slice(0,10));
+    }
+    return w;
+  }
+
+  function aggregate(){
+    const weeks=weeksInScope();const ws=new Set(weeks);
+    const bySrc={};const byWeek={};
+    weeks.forEach(w=>byWeek[w]={contacts:0,reponses:0,rdv:0,ventes:0,ca:0,src:{}});
+    const add=(src,w,k,v)=>{
+      if(state.off.has(src)||!ws.has(w))return;
+      bySrc[src]??={contacts:0,reponses:0,rdv:0,ventes:0,ca:0};
+      bySrc[src][k]+=v;byWeek[w][k]+=v;
+      byWeek[w].src[src]??={contacts:0,rdv:0,ventes:0};if(k in byWeek[w].src[src])byWeek[w].src[src][k]+=v;
+    };
+    state.semaines.forEach(r=>['contacts','reponses','rdv','ventes','ca'].forEach(k=>add(r.source,r.semaine,k,+r[k]||0)));
+    state.events.forEach(e=>{const w=monday(e.date);if(e.type==='rdv')add(e.source,w,'rdv',1);else{add(e.source,w,'ventes',1);add(e.source,w,'ca',+e.montant||0)}});
+    const tot={contacts:0,reponses:0,rdv:0,ventes:0,ca:0};
+    Object.values(bySrc).forEach(s=>Object.keys(tot).forEach(k=>tot[k]+=s[k]));
+    return {weeks,bySrc,byWeek,tot};
+  }
+
+  function renderChips(){
+    $('srcChips').innerHTML=state.sources.map((s,i)=>`<button type="button" class="chip" data-src="${esc(s.id)}" aria-pressed="${!state.off.has(s.id)}"><span class="sw" style="background:${color(i)}"></span>${esc(s.nom)}</button>`).join('');
+    const opts=state.sources.map(s=>`<option value="${esc(s.id)}">${esc(s.nom)}</option>`).join('');
+    ['wSrc','eSrc'].forEach(id=>{const el=$(id);const v=el.value;el.innerHTML=opts;if(v)el.value=v});
+  }
+
+  function renderKpis(a){
+    $('kContacts').textContent=fmt(a.tot.contacts);
+    $('kRdv').textContent=fmt(a.tot.rdv);
+    $('kVentes').textContent=fmt(a.tot.ventes);
+    $('kCa').textContent=eur(a.tot.ca);
+    const n=a.weeks.length||1;
+    $('dContacts').textContent=fmt(a.tot.contacts/n)+' par semaine en moyenne';
+    $('dRdv').textContent=(a.tot.rdv/n).toFixed(1).replace('.',',')+' par semaine · objectif 5 à 10';
+    $('dVentes').textContent='RDV → vente : '+pct(a.tot.ventes,a.tot.rdv);
+    $('dCa').textContent=a.tot.ventes?('panier moyen '+eur(a.tot.ca/a.tot.ventes)):'HT signé';
+  }
+
+  function renderFunnel(a){
+    const steps=[['Contacts',a.tot.contacts],['Réponses',a.tot.reponses],['RDV',a.tot.rdv],['Ventes',a.tot.ventes]];
+    const max=Math.max(1,...steps.map(s=>s[1]));
+    let h='';
+    steps.forEach((s,i)=>{
+      h+=`<div class="fstep"><span>${s[0]}</span><div class="fbar"><i style="width:${(100*s[1]/max).toFixed(1)}%"></i></div><span class="num" style="text-align:right">${fmt(s[1])}</span></div>`;
+      if(i<steps.length-1)h+=`<div class="fconv">↓ ${pct(steps[i+1][1],s[1])}</div>`;
+    });
+    $('funnel').innerHTML=h;
+  }
+
+  function mini(title,key,a,money){
+    const W=300,H=130,P={l:30,r:8,t:10,b:20};
+    const vals=a.weeks.map(w=>a.byWeek[w][key]);
+    const max=Math.max(1,...vals);const nice=niceMax(max);
+    const bw=(W-P.l-P.r)/Math.max(1,vals.length);
+    const y=v=>P.t+(H-P.t-P.b)*(1-v/nice);
+    let g='';
+    [0,nice/2,nice].forEach(t=>{g+=`<line x1="${P.l}" x2="${W-P.r}" y1="${y(t)}" y2="${y(t)}" stroke="var(--grid)" stroke-width="1"/><text x="${P.l-5}" y="${y(t)+3}" text-anchor="end" font-size="9" fill="var(--muted)" font-family="var(--f-mono)">${money?compactEur(t):fmt(t)}</text>`});
+    vals.forEach((v,i)=>{
+      const x=P.l+i*bw+bw*.18,w=Math.max(2,bw*.64),yy=y(v),hh=Math.max(0,H-P.b-yy);
+      const last=i===vals.length-1;
+      g+=`<rect x="${x}" y="${yy}" width="${w}" height="${hh}" rx="${Math.min(4,w/2)}" fill="var(--accent)" opacity="${last?1:.72}"/>`;
+      g+=`<rect class="hit" data-i="${i}" x="${P.l+i*bw}" y="${P.t}" width="${bw}" height="${H-P.t}" fill="transparent"/>`;
+    });
+    const step=Math.ceil(vals.length/5)||1;
+    a.weeks.forEach((w,i)=>{if(i%step===0||i===vals.length-1)g+=`<text x="${P.l+i*bw+bw/2}" y="${H-5}" text-anchor="middle" font-size="9" fill="var(--muted)">${shortDate(w)}</text>`});
+    g+=`<line x1="${P.l}" x2="${W-P.r}" y1="${H-P.b}" y2="${H-P.b}" stroke="var(--line)"/>`;
+    const total=vals.reduce((s,v)=>s+v,0);
+    return `<div class="mini" data-key="${key}"><div class="t"><span>${title}</span><span class="num muted">${money?eur(total):fmt(total)}</span></div><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="${title} par semaine">${g}</svg></div>`;
+  }
+  function niceMax(m){const p=Math.pow(10,Math.floor(Math.log10(m)));const f=m/p;return (f<=1?1:f<=2?2:f<=5?5:10)*p}
+  function compactEur(v){return v>=1000?(v/1000).toLocaleString('fr-FR',{maximumFractionDigits:1})+' k':fmt(v)}
+
+  function renderMultiples(a){
+    if(!a.weeks.length){$('multiples').innerHTML='<div class="empty" style="grid-column:1/-1">Les courbes hebdomadaires apparaîtront avec les premières données.</div>';return}
+    $('multiples').innerHTML=mini('Contacts','contacts',a)+mini('Rendez-vous','rdv',a)+mini('Ventes (CA HT)','ca',a,true);
+    document.querySelectorAll('.mini').forEach(m=>{
+      const key=m.dataset.key;let tip;
+      m.querySelectorAll('.hit').forEach(r=>{
+        r.addEventListener('mouseenter',()=>{
+          const w=a.weeks[+r.dataset.i];const d=a.byWeek[w];
+          const v=key==='ca'?eur(d.ca)+' · '+d.ventes+' vente(s)':fmt(d[key]);
+          tip=document.createElement('div');tip.className='tip';tip.textContent='Sem. du '+shortDate(w)+' : '+v;
+          m.appendChild(tip);
+          const bb=r.getBoundingClientRect(),mb=m.getBoundingClientRect();
+          tip.style.left=(bb.left-mb.left+bb.width/2)+'px';tip.style.top=(bb.top-mb.top+20)+'px';
+        });
+        r.addEventListener('mouseleave',()=>tip&&tip.remove());
+      });
+    });
+  }
+
+  function renderTable(a){
+    const rows=state.sources.filter(s=>!state.off.has(s.id)).map(s=>({s,d:a.bySrc[s.id]||{contacts:0,reponses:0,rdv:0,ventes:0,ca:0}}));
+    if(!rows.length){$('srcBody').innerHTML='<tr><td colspan="8" class="empty">Aucun outil sélectionné.</td></tr>';$('srcFoot').innerHTML='';return}
+    $('srcBody').innerHTML=rows.map(({s,d})=>{
+      const i=srcIndex(s.id);const empty=!(d.contacts||d.rdv||d.ventes||d.reponses);
+      return `<tr><td><span class="sw" style="background:${color(i)}"></span>${esc(s.nom)} <span class="muted" style="font-size:.78rem">${esc(s.type||'')}</span>${empty?' <span class="pill off">aucune donnée</span>':''}</td><td class="num">${fmt(d.contacts)}</td><td class="num">${fmt(d.reponses)}</td><td class="num">${fmt(d.rdv)}</td><td class="num">${fmt(d.ventes)}</td><td class="num">${eur(d.ca)}</td><td class="num">${pct(d.rdv,d.contacts)}</td><td class="num">${pct(d.ventes,d.rdv)}</td></tr>`}).join('');
+    const t=a.tot;
+    $('srcFoot').innerHTML=`<tr><td>Total</td><td class="num">${fmt(t.contacts)}</td><td class="num">${fmt(t.reponses)}</td><td class="num">${fmt(t.rdv)}</td><td class="num">${fmt(t.ventes)}</td><td class="num">${eur(t.ca)}</td><td class="num">${pct(t.rdv,t.contacts)}</td><td class="num">${pct(t.ventes,t.rdv)}</td></tr>`;
+  }
+
+  function renderJournal(a){
+    const ws=new Set(a.weeks);
+    const ev=state.events.filter(e=>ws.has(monday(e.date))&&!state.off.has(e.source)).sort((x,y)=>y.date.localeCompare(x.date));
+    $('journal').innerHTML=ev.length?ev.map(e=>`<div class="jrow"><span class="num muted">${shortDate(e.date)}/${e.date.slice(2,4)}</span><span class="pill ${e.type}">${e.type==='rdv'?'RDV':'Vente'}</span><span class="who"><strong>${esc(e.societe)}</strong>${e.titre?' · <span class="muted">'+esc(e.titre)+'</span>':''}<br><span class="muted" style="font-size:.78rem">${esc(srcName(e.source))}</span></span><span class="num">${e.type==='vente'?eur(e.montant):''}</span></div>`).join(''):'<div class="empty">Aucun rendez-vous ni vente enregistré pour la période.</div>';
+  }
+
+  function render(){const a=aggregate();renderChips();renderKpis(a);renderFunnel(a);renderMultiples(a);renderTable(a);renderJournal(a)}
+
+  document.querySelectorAll('[data-p]').forEach(b=>b.addEventListener('click',()=>{
+    state.period=+b.dataset.p;document.querySelectorAll('[data-p]').forEach(x=>x.setAttribute('aria-pressed',x===b));render()}));
+  $('srcChips').addEventListener('click',e=>{const c=e.target.closest('[data-src]');if(!c)return;const id=c.dataset.src;state.off.has(id)?state.off.delete(id):state.off.add(id);render()});
+  document.querySelectorAll('[data-f]').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('[data-f]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    $('fSemaine').hidden=b.dataset.f!=='semaine';$('fEvent').hidden=b.dataset.f!=='event';$('formMsg').textContent=''}));
+  $('wSem').value=monday(todayIso());$('eDate').value=todayIso();
+
+  function setStatus(txt,live){$('statusTxt').textContent=txt;$('statusDot').classList.toggle('live',!!live)}
+  render();
+
+  (async()=>{
+    const db=window.claude?await window.claude.use('db'):null;
+    if(!db){setStatus('Données indisponibles dans cette vue');document.querySelectorAll('form .btn').forEach(b=>b.disabled=true);$('formMsg').textContent='La saisie est désactivée dans cette vue.';return}
+    const user=await window.claude.use('user');
+    if(user&&user.can){const c=await user.can('data.write');if(c===false){state.canWrite=false;document.querySelectorAll('form .btn').forEach(b=>b.disabled=true);$('formMsg').textContent='Lecture seule : ton accès ne permet pas de saisir des chiffres.'}}
+    let got=0;const ready=()=>{if(++got>=3)setStatus('À jour · '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),true)};
+    const onErr=e=>setStatus('Connexion interrompue ('+e.code+'). Recharge la page.');
+    db.collection('sources').orderBy('ordre').onSnapshot(s=>{state.sources=s.docs.map(d=>({id:d.id,...d.data()}));render();ready()},onErr);
+    db.collection('semaines').onSnapshot(s=>{state.semaines=s.docs.map(d=>d.data());render();ready()},onErr);
+    db.collection('evenements').onSnapshot(s=>{state.events=s.docs.map(d=>({id:d.id,...d.data()})).filter(e=>e.date);render();ready()},onErr);
+
+    const busy=(f,on)=>f.querySelector('.btn').disabled=on||!state.canWrite;
+    $('fSemaine').addEventListener('submit',async ev=>{
+      ev.preventDefault();const f=ev.target;busy(f,true);
+      const sem=monday($('wSem').value),src=$('wSrc').value;
+      const body={semaine:sem,source:src,contacts:+$('wContacts').value||0,reponses:+$('wRep').value||0,rdv:+$('wRdv').value||0,ventes:+$('wVentes').value||0,ca:+$('wCa').value||0,maj:new Date().toISOString(),origine:'saisie'};
+      try{await db.doc('semaines/'+sem+'_'+src).set(body);$('formMsg').textContent='Semaine du '+shortDate(sem)+' enregistrée pour '+srcName(src)+'.'}
+      catch(e){$('formMsg').textContent=e.code==='quota_exceeded'?'La base est pleine : supprime d\'anciennes lignes avant d\'en ajouter.':'Enregistrement impossible ('+e.code+'). Vérifie ton accès puis réessaie.'}
+      busy(f,false)});
+    $('fEvent').addEventListener('submit',async ev=>{
+      ev.preventDefault();const f=ev.target;busy(f,true);
+      const body={type:$('eType').value,date:$('eDate').value,source:$('eSrc').value,societe:$('eSoc').value.trim(),titre:$('eTitre').value.trim(),montant:+$('eMontant').value||0,origine:'saisie'};
+      try{await db.collection('evenements').add(body);$('formMsg').textContent=(body.type==='rdv'?'RDV':'Vente')+' ajouté(e) : '+body.societe+'.';$('eSoc').value='';$('eTitre').value='';$('eMontant').value=0}
+      catch(e){$('formMsg').textContent=e.code==='quota_exceeded'?'La base est pleine : supprime d\'anciennes lignes avant d\'en ajouter.':'Ajout impossible ('+e.code+'). Vérifie ton accès puis réessaie.'}
+      busy(f,false)});
+  })();
+})();
+</script>

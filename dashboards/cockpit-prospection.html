@@ -187,9 +187,7 @@ input,select{border:1px solid var(--line);background:var(--bg);border-radius:6px
   const monday=d=>{const x=new Date(d+'T12:00:00');const k=(x.getDay()+6)%7;x.setDate(x.getDate()-k);return x.toISOString().slice(0,10)};
   const todayIso=()=>new Date().toISOString().slice(0,10);
   const shortDate=iso=>{const [y,m,d]=iso.split('-');return d+'/'+m};
-  const color=i=>`var(--s${(i%8)+1})`;
 
-  function srcIndex(id){const i=state.sources.findIndex(s=>s.id===id);return i<0?7:i}
   function srcName(id){const s=state.sources.find(s=>s.id===id);return s?s.nom:id}
 
   function weeksInScope(){
@@ -222,7 +220,7 @@ input,select{border:1px solid var(--line);background:var(--bg);border-radius:6px
   }
 
   function renderChips(){
-    $('srcChips').innerHTML=state.sources.map((s,i)=>`<button type="button" class="chip" data-src="${esc(s.id)}" aria-pressed="${!state.off.has(s.id)}"><span class="sw" style="background:${color(i)}"></span>${esc(s.nom)}</button>`).join('');
+    $('srcChips').innerHTML=state.sources.map((s,i)=>`<button type="button" class="chip" data-src="${esc(s.id)}" aria-pressed="${!state.off.has(s.id)}">${esc(s.nom)}</button>`).join('');
     const opts=state.sources.map(s=>`<option value="${esc(s.id)}">${esc(s.nom)}</option>`).join('');
     ['wSrc','eSrc'].forEach(id=>{const el=$(id);const v=el.value;el.innerHTML=opts;if(v)el.value=v});
   }
@@ -295,9 +293,10 @@ input,select{border:1px solid var(--line);background:var(--bg);border-radius:6px
   function renderTable(a){
     const rows=state.sources.filter(s=>!state.off.has(s.id)).map(s=>({s,d:a.bySrc[s.id]||{contacts:0,reponses:0,rdv:0,ventes:0,ca:0}}));
     if(!rows.length){$('srcBody').innerHTML='<tr><td colspan="8" class="empty">Aucun outil sélectionné.</td></tr>';$('srcFoot').innerHTML='';return}
-    $('srcBody').innerHTML=rows.map(({s,d})=>{
-      const i=srcIndex(s.id);const empty=!(d.contacts||d.rdv||d.ventes||d.reponses);
-      return `<tr><td><span class="sw" style="background:${color(i)}"></span>${esc(s.nom)} <span class="muted" style="font-size:.78rem">${esc(s.type||'')}</span>${empty?' <span class="pill off">aucune donnée</span>':''}</td><td class="num">${fmt(d.contacts)}</td><td class="num">${fmt(d.reponses)}</td><td class="num">${fmt(d.rdv)}</td><td class="num">${fmt(d.ventes)}</td><td class="num">${eur(d.ca)}</td><td class="num">${pct(d.rdv,d.contacts)}</td><td class="num">${pct(d.ventes,d.rdv)}</td></tr>`}).join('');
+    const active=rows.filter(({d})=>d.contacts||d.reponses||d.rdv||d.ventes).sort((x,y)=>(y.d.ca-x.d.ca)||(y.d.rdv-x.d.rdv)||(y.d.contacts-x.d.contacts));
+    const idle=rows.filter(r=>!active.includes(r));
+    $('srcBody').innerHTML=active.map(({s,d})=>`<tr><td>${esc(s.nom)} <span class="muted" style="font-size:.78rem">${esc(s.type||'')}</span></td><td class="num">${fmt(d.contacts)}</td><td class="num">${fmt(d.reponses)}</td><td class="num">${fmt(d.rdv)}</td><td class="num">${fmt(d.ventes)}</td><td class="num">${eur(d.ca)}</td><td class="num">${pct(d.rdv,d.contacts)}</td><td class="num">${pct(d.ventes,d.rdv)}</td></tr>`).join('')
+      +(idle.length?`<tr><td colspan="8" style="white-space:normal;text-align:left"><span class="pill off">Sans activité sur la période</span> <span class="muted">${idle.map(r=>esc(r.s.nom)).join(' · ')}</span></td></tr>`:'');
     const t=a.tot;
     $('srcFoot').innerHTML=`<tr><td>Total</td><td class="num">${fmt(t.contacts)}</td><td class="num">${fmt(t.reponses)}</td><td class="num">${fmt(t.rdv)}</td><td class="num">${fmt(t.ventes)}</td><td class="num">${eur(t.ca)}</td><td class="num">${pct(t.rdv,t.contacts)}</td><td class="num">${pct(t.ventes,t.rdv)}</td></tr>`;
   }

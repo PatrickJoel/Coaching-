@@ -1,0 +1,229 @@
+<title>Formula vs Out of office</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: en-tête de synthèse, deux fiches identiques côte à côte, puis tableau comparatif et plan d'action. */
+:root{
+  --bg:#f6f7f9; --surface:#ffffff; --ink:#18202b; --muted:#5b6675; --line:#dfe3e9;
+  --accent:#1f5f8b; --accent-soft:#e3eef6;
+  --ok:#1d7a4c; --ok-soft:#e2f3ea; --warn:#9a6300; --warn-soft:#fbf0dc; --bad:#b3372c; --bad-soft:#fae5e2;
+  --f-display:"Fraunces",Georgia,serif; --f-body:"Public Sans",system-ui,-apple-system,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12161c; --surface:#1a2029; --ink:#e7ebf0; --muted:#9aa5b3; --line:#2c3440;
+  --accent:#7db4dc; --accent-soft:#1d2d3b;
+  --ok:#6fd0a0; --ok-soft:#173026; --warn:#e7b65c; --warn-soft:#342914; --bad:#f08a80; --bad-soft:#3a1e1c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161c; --surface:#1a2029; --ink:#e7ebf0; --muted:#9aa5b3; --line:#2c3440;
+  --accent:#7db4dc; --accent-soft:#1d2d3b;
+  --ok:#6fd0a0; --ok-soft:#173026; --warn:#e7b65c; --warn-soft:#342914; --bad:#f08a80; --bad-soft:#3a1e1c; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55;padding:0 16px}
+.wrap{max-width:1180px;margin:0 auto;padding-block:32px 56px;display:grid;gap:28px}
+h1,h2,h3{text-wrap:balance;margin:0}
+h1{font-family:var(--f-display);font-weight:600;font-size:clamp(1.7rem,3.5vw,2.3rem);line-height:1.15}
+h2{font-size:1.05rem;font-weight:700}
+h3{font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;margin-bottom:6px}
+p{margin:0}
+a{color:var(--accent)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.muted{color:var(--muted)}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+header{display:grid;gap:10px}
+.eyebrow{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.lede{max-width:72ch;color:var(--muted)}
+.note{font-size:.85rem;color:var(--muted);border-left:3px solid var(--line);padding-left:10px;max-width:80ch}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,500px),1fr));gap:20px;align-items:start}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px;display:grid;gap:18px;min-width:0}
+.card-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:flex-start}
+.card-head .name{font-family:var(--f-display);font-size:1.5rem;font-weight:600;line-height:1.1}
+.meta{font-size:.85rem;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.pill.ok{background:var(--ok-soft);color:var(--ok)} .pill.warn{background:var(--warn-soft);color:var(--warn)} .pill.bad{background:var(--bad-soft);color:var(--bad)} .pill.info{background:var(--accent-soft);color:var(--accent)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.kpi{background:var(--surface);padding:12px}
+.kpi .v{font-family:var(--f-mono);font-size:1.15rem;font-weight:500;font-variant-numeric:tabular-nums}
+.kpi .l{font-size:.75rem;color:var(--muted);line-height:1.3}
+@media (max-width:460px){.kpis{grid-template-columns:1fr}}
+ul{margin:0;padding-left:18px;display:grid;gap:4px}
+li{padding-left:2px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.plus li::marker{content:"+  ";color:var(--ok);font-weight:700}
+.minus li::marker{content:"!  ";color:var(--bad);font-weight:700}
+.fit{display:grid;gap:8px}
+.fit-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;font-size:.9rem;border-bottom:1px dashed var(--line);padding-bottom:6px}
+.fit-row:last-child{border-bottom:0;padding-bottom:0}
+.verdict{background:var(--accent-soft);border-radius:8px;padding:14px 16px;display:grid;gap:4px}
+.verdict strong{font-size:.95rem}
+.table-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:.9rem}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{font-size:.74rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600}
+tbody th{font-weight:600;width:22%}
+tr:last-child th,tr:last-child td{border-bottom:0}
+.actions{display:grid;gap:10px;counter-reset:a}
+.action{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:grid;grid-template-columns:auto 1fr;gap:4px 14px}
+.action::before{counter-increment:a;content:counter(a);grid-row:span 2;font-family:var(--f-mono);font-weight:500;color:var(--accent);font-size:1.1rem}
+.action .crit{font-size:.85rem;color:var(--muted)}
+.skipped{font-size:.85rem;color:var(--muted)}
+</style>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">Adequatis · Choix de prestataires · État au 29 septembre 2026</span>
+  <h1>Deux prestataires d'acquisition, une même grille</h1>
+  <p class="lede">Synthèse des deux derniers appels Fathom où un prestataire a présenté son offre à Patrick. Tous les chiffres viennent des transcriptions ; les chiffres cités à l'oral n'ont été confirmés par aucun document.</p>
+  <p class="note">Appel Produscale du 25/09 écarté : il a été coupé après 6 minutes (désaccord sur la caméra), sans présentation d'offre. Un nouveau créneau reste à fixer via le Calendly envoyé par Alexis Gelot.</p>
+</header>
+
+<section class="grid2" aria-label="Fiches prestataires">
+
+  <!-- ========== THE FORMULA ========== -->
+  <article class="card">
+    <div class="card-head">
+      <div>
+        <div class="name">The Formula</div>
+        <div class="meta">Ismaïl El Bouchikhi, Head of Sales · 29/09 · 1 h 14 · <a href="https://fathom.video/calls/840144345" target="_blank" rel="noopener">Fathom</a></div>
+      </div>
+      <span class="pill warn">Proposition écrite attendue</span>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi"><div class="v">2 997 €</div><div class="l">3 mois d'accompagnement (HT/TTC non précisé)</div></div>
+      <div class="kpi"><div class="v">97–597 €</div><div class="l">par mois ensuite, abonnement à l'agent</div></div>
+      <div class="kpi"><div class="v">1–4 h</div><div class="l">par semaine demandées à Patrick</div></div>
+    </div>
+
+    <div><h3>Ce qu'ils vendent</h3>
+      <p>Un agent IA de prospection LinkedIn et e-mail (recherche, invitations, relances, contenus), un scoring des prospects sur 20, une liste des 30 concurrents à exploiter, un CRM, et la validation des réponses depuis une appli mobile. S'y ajoutent un expert dédié joint par WhatsApp, des sessions de cadrage, de calibrage de l'offre et d'optimisation, un bilan final, et des ressources sur Skool.</p>
+    </div>
+
+    <div><h3>Promesse et garantie</h3>
+      <p>Objectif : « ROI ×2 ou minimum 6 000 € de CA ». Tant que l'objectif n'est pas atteint, l'accompagnement continue. Il n'y a pas de remboursement. Seuls les clients issus des campagnes Formula comptent.</p>
+    </div>
+
+    <div class="fit"><h3>Adéquation avec tes objectifs à 60 jours</h3>
+      <div class="fit-row"><span>5 à 10 conversations qualifiées par semaine</span><span class="pill bad">Aucun chiffre donné</span></div>
+      <div class="fit-row"><span>2 clients entre 1 500 et 3 000 € par mois</span><span class="pill warn">Garantie floue</span></div>
+      <div class="fit-row"><span>Pilote court de 60 jours</span><span class="pill warn">Seul le tarif 3 mois est connu</span></div>
+      <div class="fit-row"><span>Libérer ton temps pour le closing</span><span class="pill ok">Oui, en partie</span></div>
+    </div>
+
+    <div class="cols">
+      <div><h3>Points forts</h3><ul class="plus">
+        <li>Démo concrète : personas, statistiques par origine, scoring, CRM, validation par swipe</li>
+        <li>Leur ciblage publicitaire t'a trouvé toi : ESCP, dirigeant de TPE</li>
+        <li>Travail sur l'offre et le prix inclus</li>
+        <li>CA attribué campagne par campagne</li>
+      </ul></div>
+      <div><h3>Signaux d'alerte</h3><ul class="minus">
+        <li>Pas de chiffre de RDV par semaine malgré deux demandes</li>
+        <li>« 70–80 % de taux de réponse » : invraisemblable</li>
+        <li>Sur les 757 invitations de la démo, aucun résultat connu</li>
+        <li>Obligations liées à la garantie non définies</li>
+        <li>Risque de restriction du compte LinkedIn non traité</li>
+        <li>Pression forte : « tu es juste venu prendre de l'information ? »</li>
+      </ul></div>
+    </div>
+
+    <div><h3>Prochaines étapes</h3><ul>
+      <li>Ismaïl : proposition écrite, cas clients, statistiques des 757 invitations. <strong>Rien reçu par mail à ce jour</strong></li>
+      <li>Patrick : réponse d'ici la fin de la semaine (2–3 octobre), puis éventuellement un R2</li>
+    </ul></div>
+
+    <div class="verdict"><strong>Verdict : à creuser, pas à signer en l'état.</strong>
+      <span class="muted">L'outil répond bien à ton besoin propre. Le contrat, lui, n'est pas encore lisible. Signe seulement avec des réponses écrites sur le tarif à 60 jours, les obligations de la garantie et le volume de RDV attendu.</span></div>
+  </article>
+
+  <!-- ========== OUT OF OFFICE ========== -->
+  <article class="card">
+    <div class="card-head">
+      <div>
+        <div class="name">Out of office</div>
+        <div class="meta">Jules Fléchet, fondateur · 23/09 · 35 min · <a href="https://fathom.video/calls/834487223" target="_blank" rel="noopener">Fathom</a></div>
+      </div>
+      <span class="pill info">Proposition envoyée par WhatsApp</span>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi"><div class="v">1 250 €</div><div class="l">par semaine de développement</div></div>
+      <div class="kpi"><div class="v">1 sem.</div><div class="l">pilote pour le client BTP (Rencontre Prescription)</div></div>
+      <div class="kpi"><div class="v">0</div><div class="l">garantie de résultat</div></div>
+    </div>
+
+    <div><h3>Ce qu'ils vendent</h3>
+      <p>Des systèmes d'automatisation sur mesure, construits par une équipe de 5 personnes et facturés à la semaine. Exemples montrés : un portail client pour un vendeur de leads médicaux à 150 € le lead, une chaîne de contenu par IA (idées, scripts, montage), des setters IA sur LinkedIn et un CRM qui rédige les propositions à partir des transcriptions. Outils : Apify, Apollo, Lemlist.</p>
+    </div>
+
+    <div><h3>Pilote proposé</h3>
+      <p>Une machine d'acquisition en marque blanche pour ton client organisateur de salons BTP : sourcing des industriels, orchestration des campagnes, optimisation par IA et setting des réponses, pour 1 250 €. Le client vend 1 500 à 2 000 € par industriel : <strong>un seul industriel signé rembourse le pilote</strong>.</p>
+    </div>
+
+    <div class="fit"><h3>Adéquation avec tes objectifs à 60 jours</h3>
+      <div class="fit-row"><span>5 à 10 conversations qualifiées par semaine</span><span class="pill bad">Hors périmètre</span></div>
+      <div class="fit-row"><span>Delivery client industrialisé et revendable</span><span class="pill ok">Oui</span></div>
+      <div class="fit-row"><span>Pilote court à budget borné</span><span class="pill ok">1 semaine, 1 250 €</span></div>
+      <div class="fit-row"><span>Résultat mesurable au bout d'une semaine</span><span class="pill warn">Improbable (warm-up)</span></div>
+    </div>
+
+    <div class="cols">
+      <div><h3>Points forts</h3><ul class="plus">
+        <li>Outils réellement en production, montrés en démo</li>
+        <li>Prix simple, faible en valeur absolue</li>
+        <li>Diagnostic juste sur ton modèle hybride (temps passé + résultat)</li>
+        <li>Machine réutilisable pour d'autres clients</li>
+      </ul></div>
+      <div><h3>Signaux d'alerte</h3><ul class="minus">
+        <li>Il vend du temps de développement, pas des rendez-vous</li>
+        <li>Une semaine pour sourcing, campagnes, IA et setting : périmètre ambitieux</li>
+        <li>Licences, domaines, warm-up, maintenance et propriété du code non abordés</li>
+        <li>A demandé un contact direct avec ton client (risque de contournement)</li>
+        <li>Qui paie et quelle marge pour toi : pas tranché</li>
+      </ul></div>
+    </div>
+
+    <div><h3>Prochaines étapes</h3><ul>
+      <li>Jules : proposition envoyée par WhatsApp le 23/09 (à vérifier de ton côté, invisible dans Gmail)</li>
+      <li>Patrick : la présenter à Rencontre Prescription, puis onboarding commun si accord</li>
+    </ul></div>
+
+    <div class="verdict"><strong>Verdict : bon sous-traitant pour ton delivery, pas pour ton acquisition.</strong>
+      <span class="muted">À revendre au client BTP avec ta marge, après avoir cadré par écrit le livrable, les coûts d'outils, la propriété du code et une clause de non-sollicitation.</span></div>
+  </article>
+</section>
+
+<section style="display:grid;gap:12px" aria-labelledby="cmp">
+  <h2 id="cmp">Comparaison ligne à ligne</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Critère</th><th>The Formula</th><th>Out of office</th></tr></thead>
+    <tbody>
+      <tr><th>Problème traité</th><td>Ta propre acquisition, irrégulière</td><td>Le delivery d'un client (Rencontre Prescription)</td></tr>
+      <tr><th>Nature de l'offre</th><td>Logiciel + accompagnement standardisé</td><td>Développement sur mesure</td></tr>
+      <tr><th>Coût d'entrée</th><td class="mono">2 997 € / 3 mois</td><td class="mono">1 250 € / semaine</td></tr>
+      <tr><th>Coût récurrent</th><td class="mono">97 à 597 € / mois</td><td>Non abordé</td></tr>
+      <tr><th>Engagement de résultat</th><td>Accompagnement prolongé jusqu'à ROI ×2 ou 6 000 € de CA</td><td>Aucun</td></tr>
+      <tr><th>Preuves apportées</th><td>Démo sur le compte de la fondatrice ; cas clients cités à l'oral</td><td>Démo d'outils en production ; un seul chiffre client (150 € le lead)</td></tr>
+      <tr><th>Temps demandé à Patrick</th><td>Paramétrage, validations, closing, lives : 1 à 4 h par semaine</td><td>Présenter au client, onboarding commun</td></tr>
+      <tr><th>Principal risque</th><td>Compte LinkedIn restreint ; garantie inapplicable</td><td>Livrable sans RDV ; contournement de la marque blanche</td></tr>
+      <tr><th>Qui paie</th><td>Adequatis</td><td>Le client final, en principe (à confirmer)</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Les deux offres ne sont pas en concurrence : l'une vise ton pipeline, l'autre la production pour un client. Tu peux retenir les deux, une seule, ou aucune.</p>
+</section>
+
+<section style="display:grid;gap:12px" aria-labelledby="act">
+  <h2 id="act">Plan d'action</h2>
+  <div class="actions">
+    <div class="action"><strong>Relancer Ismaïl par écrit avec 4 questions fermées</strong>
+      <span class="crit">Les questions : tarif du pilote à 60 jours (HT), obligations exactes de la garantie, nombre de RDV qualifiés par semaine visé pour ton persona, statistiques réelles des 757 invitations. Réussi quand les 4 réponses chiffrées sont écrites dans la proposition.</span></div>
+    <div class="action"><strong>Fixer ta règle de décision Formula avant de lire la proposition</strong>
+      <span class="crit">Exemple : tu signes si le pilote fait 60 jours pour 2 000 € HT ou moins et si la garantie est écrite. Réussi quand tu décides en 5 minutes à réception.</span></div>
+    <div class="action"><strong>Demander à Jules un avenant d'une page</strong>
+      <span class="crit">Il doit couvrir le livrable exact de la semaine, les licences à la charge de qui, la propriété du code, la maintenance et une clause de non-sollicitation de ton client. Réussi quand l'avenant est signé avant tout paiement.</span></div>
+    <div class="action"><strong>Chiffrer la revente du pilote à Rencontre Prescription</strong>
+      <span class="crit">Achat 1 250 € ; revente autour de 2 500 € HT avec un coefficient de 2, à ajuster selon ce que le client accepte. Réussi quand le devis part avec ta marge intégrée.</span></div>
+    <div class="action"><strong>Reprogrammer Produscale, caméra allumée</strong>
+      <span class="crit">Réussi quand le créneau est réservé et que l'appel va au bout.</span></div>
+  </div>
+</section>
+</div>

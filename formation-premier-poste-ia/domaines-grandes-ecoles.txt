@@ -1,0 +1,56 @@
+# Domaines e-mail des grandes écoles (étudiants et diplômés) — filtre de segmentation YMLP
+# Management
+hec.edu
+essec.edu
+escp.eu
+edu.escpeurope.eu
+edhec.com
+em-lyon.com
+skema.edu
+audencia.com
+neoma-bs.com
+neoma-bs.fr
+kedgebs.com
+grenoble-em.com
+tbs-education.org
+tbs-education.fr
+icn-artem.com
+rennes-sb.com
+montpellier-bs.com
+em-strasbourg.eu
+iseg.fr
+ieseg.fr
+inseec.com
+psbedu.paris
+excelia-group.com
+burgundy-bs.fr
+em-normandie.fr
+# Ingénieurs
+polytechnique.edu
+centralesupelec.fr
+ec-lyon.fr
+centrale-marseille.fr
+ec-nantes.fr
+centralelille.fr
+mines-paristech.fr
+minesparis.psl.eu
+mines-saint-etienne.org
+imt-atlantique.net
+telecom-paris.fr
+ensta-paris.fr
+enpc.fr
+supaero.isae.fr
+student.isae-supaero.fr
+insa-lyon.fr
+insa-toulouse.fr
+insa-rennes.fr
+grenoble-inp.fr
+utc.fr
+epita.fr
+essca.eu
+# IEP et autres
+sciencespo.fr
+sciences-po.org
+dauphine.eu
+dauphine.psl.eu
+ens.psl.eu

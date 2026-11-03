@@ -67,7 +67,7 @@ En moyenne, 1 007 € sortent chaque mois. Les principaux postes :
 ## 4. Les trois mouvements à retenir
 
 1. **Crée Ton Avenir ne paie plus depuis le 26/05/2026.** Il représentait 53 % du chiffre d'affaires, avec 1 200 à 1 500 € tous les un à deux mois.
-   *Question : la mission est-elle terminée, suspendue, ou y a-t-il une facture impayée ?*
+   *Réponse du 03/11/2026 : mission terminée. Ce revenu est perdu. Sans nouveau client, le chiffre d'affaires de référence tombe à environ 565 € par mois (6 794,60 € sur 12 mois, hors Crée Ton Avenir).*
 2. **Mollie prend le relais :** 3 483,66 € en septembre et octobre, contre 1 117,99 € de mars à juin.
    *Question : qu'est-ce qui se vend par Mollie (Tiny Pages, coaching, livre) et peut-on le reproduire chaque mois ?*
 3. **Août à 0 € d'encaissement.** Le solde a quand même progressé sur l'année, de 3 503 € à 11 813 €. Mais 4 228 € de cette hausse viennent du placement Spiko et des virements PayPal, pas de l'activité.

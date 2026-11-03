@@ -1,0 +1,11 @@
+numero,client,email_contact,date_facture,echeance,montant_ttc,statut
+F-2026-081,Alpha Logistique,compta@alpha-logistique.example,2026-07-15,2026-08-14,4320.00,payee
+F-2026-084,Bêta Bureaux,factures@beta-bureaux.example,2026-08-02,2026-09-01,1860.00,non_payee
+F-2026-087,Gamma Entrepôts,ap@gamma-entrepots.example,2026-08-20,2026-09-19,7250.00,non_payee
+F-2026-090,Delta Conseil,admin@delta-conseil.example,2026-09-05,2026-10-05,960.00,non_payee
+F-2026-091,Bêta Bureaux,factures@beta-bureaux.example,2026-09-10,2026-10-10,540.00,non_payee
+F-2026-093,Epsilon Santé,compta@epsilon-sante.example,2026-09-18,2026-10-18,2280.00,payee
+F-2026-095,Zêta Immobilier,gestion@zeta-immo.example,2026-09-25,2026-10-25,3600.00,non_payee
+F-2026-097,Alpha Logistique,compta@alpha-logistique.example,2026-10-01,2026-10-31,1740.00,non_payee
+F-2026-099,Êta Industrie,achats@eta-industrie.example,2026-10-08,2026-11-07,5100.00,non_payee
+F-2026-100,Gamma Entrepôts,ap@gamma-entrepots.example,2026-10-12,2026-11-11,1320.00,non_payee

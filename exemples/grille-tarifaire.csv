@@ -1,0 +1,6 @@
+reference,designation,unite,prix_unitaire_ht,tva
+AUD-01,Audit d'éclairage (jusqu'à 3 000 m²),site,650.00,20
+AUD-02,Audit d'éclairage (au-delà de 3 000 m²),site,950.00,20
+LED-HB,Luminaire LED grande hauteur avec détection,unité,310.00,20
+POSE-HB,Pose d'un luminaire grande hauteur,unité,85.00,20
+MAINT-A,Contrat de maintenance annuel,site,1200.00,20

@@ -32,7 +32,7 @@ Une partie des encaissements ne vient pas de l'activité. Je les retire :
 | Encaissement retiré | Montant | Raison |
 |---|---|---|
 | Spiko Sicav (03/11/2025) | 1 028,20 € | Libellé « Retrait depuis Spiko » : c'est ton placement, pas une vente |
-| PayPal, virements instantanés (20/11/2025 et 27/01/2026) | 3 200,00 € | Qonto les classe en « prêts ». **Source à confirmer** |
+| PayPal, virements instantanés (20/11/2025 et 27/01/2026) | 3 200,00 € | Apport personnel, confirmé le 03/11/2026 |
 | URSSAF (16/06/2026) | 1 503,00 € | Remboursement de cotisations |
 | Cursor (18/09/2026) | 62,82 € | Remboursement d'abonnement |
 
@@ -71,7 +71,7 @@ En moyenne, 1 007 € sortent chaque mois. Les principaux postes :
 2. **Mollie prend le relais :** 3 483,66 € en septembre et octobre, contre 1 117,99 € de mars à juin.
    *Question : qu'est-ce qui se vend par Mollie (Tiny Pages, coaching, livre) et peut-on le reproduire chaque mois ?*
 3. **Août à 0 € d'encaissement.** Le solde a quand même progressé sur l'année, de 3 503 € à 11 813 €. Mais 4 228 € de cette hausse viennent du placement Spiko et des virements PayPal, pas de l'activité.
-   *Question : de quoi sont faits les 3 200 € venus de PayPal ?*
+   *Les 3 200 € venus de PayPal sont un apport personnel (confirmé le 03/11/2026).*
 
 ## 5. L'écart avec l'objectif de 200 USD par jour
 
@@ -85,7 +85,6 @@ Le chiffre d'affaires représente environ un cinquième de l'objectif, et c'est 
 
 ## Données manquantes
 
-- **Les 3 200 € de PayPal :** il faut savoir si ce sont des ventes encaissées sur PayPal (elles s'ajouteraient alors au chiffre d'affaires) ou un apport personnel.
 - **Revenus hors Qonto :** il en existe peut-être d'autres (PayPal, Stripe, Vinted, trading). Ils ne sont pas dans ces chiffres.
 - **Justificatifs :** 111 dépenses sur 129 n'ont pas de justificatif dans Qonto, alors qu'il est demandé. C'est à traiter avant la clôture comptable.
 

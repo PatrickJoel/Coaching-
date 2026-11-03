@@ -10,7 +10,6 @@ Secteur : cabinet de recrutement et conseil RH pour PME en Île-de-France ; agen
 - Licorne Society (cabinet de recrutement, Paris)
 - Lynkus (recrutement, couverture nationale)
 - Ethis RH (RPO et conseil en recrutement, Paris, Nantes, Rennes)
-- Cabinet Boemmaler (ajouté le 03/11/2026 ; introuvable en ligne sous cette orthographe : [site ou orthographe à compléter])
 - [à compléter : cabinets locaux que tu croises en rendez-vous]
 
 ### Agences marketing et prospection B2B
@@ -21,6 +20,7 @@ Secteur : cabinet de recrutement et conseil RH pour PME en Île-de-France ; agen
 - Lalaleads (prospection B2B)
 
 ### Career coaching
+- Enjeux Dirigeants (outplacement de cadres dirigeants, Paris ; associé : Hervé Bommelaer, auteur sur le réseau et la prise de poste)
 - Garance & moi (bilan de compétences, reconversion)
 - [à compléter : 2 ou 3 coachs ou cabinets parisiens que tes clients citent]
 

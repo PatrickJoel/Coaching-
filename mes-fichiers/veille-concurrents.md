@@ -1,6 +1,6 @@
 # Veille : sujets à suivre
 
-Statut : PROPOSITION du 03/11/2026, à valider. Concurrents repérés par recherche web, pas encore confirmés par l'entreprise.
+Statut : validée le 03/11/2026. Concurrents repérés par recherche web, pas encore confirmés par l'entreprise.
 
 Secteur : cabinet de recrutement et conseil RH pour PME en Île-de-France ; agence marketing (prospection B2B, prise de rendez-vous) ; career coaching.
 
@@ -10,6 +10,7 @@ Secteur : cabinet de recrutement et conseil RH pour PME en Île-de-France ; agen
 - Licorne Society (cabinet de recrutement, Paris)
 - Lynkus (recrutement, couverture nationale)
 - Ethis RH (RPO et conseil en recrutement, Paris, Nantes, Rennes)
+- Cabinet Boemmaler (ajouté le 03/11/2026 ; introuvable en ligne sous cette orthographe : [site ou orthographe à compléter])
 - [à compléter : cabinets locaux que tu croises en rendez-vous]
 
 ### Agences marketing et prospection B2B

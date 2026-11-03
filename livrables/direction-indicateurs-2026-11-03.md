@@ -68,7 +68,7 @@ En moyenne, 1 007 € sortent chaque mois. Les principaux postes :
 
 1. **Crée Ton Avenir ne paie plus depuis le 26/05/2026.** Il représentait 53 % du chiffre d'affaires, avec 1 200 à 1 500 € tous les un à deux mois.
    *Question : la mission est-elle terminée, suspendue, ou y a-t-il une facture impayée ?*
-2. **Mollie prend le relais :** 2 863,94 € en septembre et octobre, contre 1 117,99 € de mars à juin.
+2. **Mollie prend le relais :** 3 483,66 € en septembre et octobre, contre 1 117,99 € de mars à juin.
    *Question : qu'est-ce qui se vend par Mollie (Tiny Pages, coaching, livre) et peut-on le reproduire chaque mois ?*
 3. **Août à 0 € d'encaissement.** Le solde a quand même progressé sur l'année, de 3 503 € à 11 813 €. Mais 4 228 € de cette hausse viennent du placement Spiko et des virements PayPal, pas de l'activité.
    *Question : de quoi sont faits les 3 200 € venus de PayPal ?*

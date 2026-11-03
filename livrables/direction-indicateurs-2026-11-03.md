@@ -94,3 +94,16 @@ Le chiffre d'affaires représente environ un cinquième de l'objectif, et c'est 
 - **Classement des encaissements :** il repose sur les libellés Qonto (Spiko, URSSAF et Cursor retirés ; PayPal mis de côté). À confirmer ligne par ligne.
 - **Montants :** ils sont en TTC, tels qu'affichés par Qonto. Ton régime de TVA n'est pas confirmé.
 - **Crée Ton Avenir :** vérifier dans Indy s'il reste une facture émise et non payée. Si c'est le cas, l'agent Relances peut s'en charger.
+
+## 6. Recettes moins dépenses depuis le 1er janvier 2026 (janvier à octobre)
+
+| | Montant | Par mois |
+|---|---|---|
+| Recettes d'activité (hors PayPal 3 100 € et Spiko) | 13 080,17 € | 1 308 € |
+| Dépenses | 8 969,43 € | |
+| Remboursements reçus (URSSAF 1 503 €, Cursor 62,82 €) | -1 565,82 € | |
+| Dépenses nettes | 7 403,61 € | 740 € |
+| **Résultat de trésorerie** | **5 676,56 €** | **568 €** |
+
+Depuis la fin de Crée Ton Avenir (juin à octobre) : +3 115,02 € au total, soit 623 € par mois. Sans le remboursement URSSAF exceptionnel de juin, ce serait 1 549,20 €, soit 310 € par mois.
+Si l'on retire Crée Ton Avenir de janvier à octobre (6 300 € encaissés en 2026), le résultat serait de -623,44 €.

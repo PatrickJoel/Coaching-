@@ -1,0 +1,10 @@
+reference,designation,unite,prix_unitaire_ht,tva
+HEURE,Heure de prestation (prospection, marketing, IA),heure,50.00,[à compléter]
+TEST-5,Test Découverte : 5 h max, 7 à 15 jours, paiement à la commande,forfait,250.00,[à compléter]
+TEST-10,Test Action : 10 h max, 15 à 30 jours, paiement à la commande,forfait,500.00,[à compléter]
+PRIME,Prime de succès sur ventes signées (en complément du fixe),% du CA signé,10%,[à compléter]
+CAMP-RDV,Campagne prospection : forfait (périmètre à confirmer),forfait,1200.00,[à compléter]
+RDV,Rendez-vous qualifié en complément du forfait campagne,rendez-vous,200.00,[à compléter]
+RELEC,Relecture de dossier (recrutement),dossier,800.00,[à compléter]
+SELEC,Contrat sélection,unité,50.00,[à compléter]
+COACH,Coaching carrière « Révèle ton avenir »,[à compléter],[à compléter],[à compléter]

@@ -17,7 +17,7 @@
 ## 3. Mon client type
 - Cible principale : Cabinets comptables à Lyon (détail et autres cibles : voir mes-cibles.md)
 - Le décideur : à compléter
-- Ses 3 plus grosses douleurs : à compléter
+- Ses 3 plus grosses douleurs : recherchent de nouveaux clients
 - Ce qui déclenche l'achat : à compléter
 
 ## 4. Mes arguments

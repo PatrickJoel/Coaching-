@@ -37,9 +37,9 @@ Liste finale : 15 comptes — n° 1, 2, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 1
 
 ## Contrôle « opposition à la prospection » (Pappers, 04/11/2026)
 Méthode : page Pappers de chaque compte relue en direct, section « Comment contacter », recherche de la phrase « Cette entreprise s'est opposée à l'utilisation de ses données à des fins de prospection. »
-- **Mention présente :** Valorya (n° 3, exclu), Quovive (n° 7, exclusion à confirmer).
+- **Mention présente :** Valorya (n° 3, exclu), Quovive (n° 7, exclu).
 - **Mention absente :** Comexa, Soft Lyon, AEDC, Erival, Roche & Cie, ATIP Conseils, Efinec, MLVEO, Boesch, Ackela, Cap'Experts, CLT Audit, FLCO Solutions, Essor Conseils Lyon Est.
-- **Adeki (n° 4) :** mention **absente** de la page Pappers relue le 04/11/2026 ; exclu sur décision du chef (source de l'information à vérifier).
+- **Adeki (n° 4) :** mention **absente** de la page Pappers relue le 04/11/2026 ; réintégré dans la liste finale.
 - **Candidats de remplacement écartés pour opposition :** Hares (Francheville), Auratio (Lyon 6e, 15 personnes de toute façon), Exinco, Isacom, Cabinet Blanchard et Associés.
 - **Autres candidats écartés :** SDRA (22 collaborateurs), Analys (3 sites), Lozange / Cabinet Rostan Gonzalez (bureaux à Lyon, Chambéry, Nice), UEC (Groupe Altitude), Managers (groupe Managers), ARCS-Fidusero (19 salariés), Canopée Consulting (groupe), Gallo & Associés (groupement), Syncea (CSE, plusieurs bureaux), A.G. Experts (liquidateur judiciaire mentionné), Exactyf, Cedexa, Cabinet Zolemian, RGC (pas de site trouvé).
 

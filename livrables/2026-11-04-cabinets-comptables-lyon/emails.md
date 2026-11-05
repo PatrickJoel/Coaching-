@@ -8,7 +8,7 @@ Objet : cabinet depuis 1962
 
 Bonjour Monsieur Eynard,
 
-Un cabinet familial lyonnais depuis 1962, avec un seul dirigeant à la barre. Adequatis prend en charge votre prospection B2B jusqu'au rendez-vous qualifié dans votre agenda ; vous gardez le premier échange et la signature. Un test court permet de démarrer. Un point de 15 minutes cette semaine vous conviendrait-il ?
+Un cabinet lyonnais depuis 1962, avec un seul dirigeant à la barre. Adequatis prend en charge votre prospection B2B jusqu'au rendez-vous qualifié dans votre agenda ; vous gardez le premier échange et la signature. Un test court permet de démarrer. Un point de 15 minutes cette semaine vous conviendrait-il ?
 
 Patrick Taranto — Adequatis / Media JD — 06 01 32 55 51
 Si vous ne souhaitez plus recevoir de message de ma part, répondez simplement "stop".
@@ -39,7 +39,7 @@ Un cabinet créé en 2019, avec un bureau à Lyon, un autre à Bayonne et un seu
 Patrick Taranto — Adequatis / Media JD — 06 01 32 55 51
 Si vous ne souhaitez plus recevoir de message de ma part, répondez simplement "stop".
 
-Source : faits.md ADEKI : créé en 2019, bureau Bayonne (web : adeki.fr, Pappers). Preuve : ma-vente §4. CONFLIT À LEVER : opposition à la prospection signalée par declencheurs.md, absente selon comptes.md.
+Source : faits.md ADEKI : créé en 2019, bureau Bayonne (web : adeki.fr, Pappers). Preuve : ma-vente §4. Opposition à la prospection : absente (Pappers relu le 05/11/2026).
 
 ### AEDC — email 1
 Destinataire : Xavier Millet (xmillet@aedc-ec.com, probable, domaine catch-all)
@@ -125,7 +125,7 @@ Objet : votre remplacement d'octobre
 
 Bonjour Monsieur Boesch,
 
-Vous avez publié en octobre une offre de collaborateur comptable pour un remplacement, aujourd'hui retirée. Adequatis prend en charge la prospection B2B du cabinet jusqu'au rendez-vous qualifié dans l'agenda des associés ; vous gardez le premier échange et la signature. Un test court permet de démarrer. Seriez-vous partant pour 15 minutes ?
+Vous avez cherché en octobre un collaborateur comptable pour un remplacement : dans ces périodes, la production passe avant la recherche de clients. Adequatis prend en charge la prospection B2B du cabinet jusqu'au rendez-vous qualifié dans l'agenda des associés ; vous gardez le premier échange et la signature. Un test court permet de démarrer. Seriez-vous partant pour 15 minutes ?
 
 Patrick Taranto — Adequatis / Media JD — 06 01 32 55 51
 Si vous ne souhaitez plus recevoir de message de ma part, répondez simplement "stop".

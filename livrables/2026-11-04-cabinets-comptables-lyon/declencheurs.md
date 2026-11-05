@@ -50,7 +50,7 @@ Aucun des 15 ne publie d'offre commerciale ou de chargé de développement.
 | Ythak (écarté) | offre du 29/10/2026 | confirmé : « Publiée le 29/10/2026 » (https://www.hellowork.com/fr-fr/emplois/84931971.html) ; 25 collaborateurs et 4 associés : reste écarté |
 
 ## Points d'attention pour le chef
-- **Opposition à la prospection** : Pappers indique que **Valorya** et **Adeki** « se sont opposées à l'utilisation de leurs données à des fins de prospection » (pages Pappers ci-dessus). À trancher avant tout envoi.
+- **Opposition à la prospection** : Pappers indique que **Valorya** « s'est opposée à l'utilisation de ses données à des fins de prospection » (exclue). **Adeki** : mention absente de la page Pappers relue le 05/11/2026 ; conservé.
 - **Effectif Valorya** : Pappers affiche « 0 salarié (donnée 2026) », contre 6 à 9 (INSEE 2024) dans comptes.md. À vérifier.
 - Offres attribuées seulement quand le nom du cabinet figure sur l'annonce. Plusieurs offres de cabinets de recrutement (MK Partners, Lyon 2e, 27/10/2026 ; Recrulab, Caluire, vers le 16/10/2026) portent sur des cabinets anonymes : non attribuées.
 - Non lu : pages LinkedIn d'entreprise, posts Facebook (Valorya « chef de mission », Ackela « recrute » : non datés), contenu des actes Pappers.
